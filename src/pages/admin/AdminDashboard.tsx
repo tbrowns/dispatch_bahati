@@ -23,6 +23,7 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('hero');
   const [saveMessage, setSaveMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  
 
   useEffect(() => {
     const isAuth = sessionStorage.getItem('bahati-admin-auth');
@@ -110,7 +111,7 @@ const AdminDashboard = () => {
 
         <div className="border-t border-[#2a2a2a] bottom-0 left-0 right-0 p-4">
           <button
-            onClick={() => window.open('/')}
+            onClick={() => window.open('/', '_blank')}
             className="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white transition-colors"
           >
             <Globe className="w-5 h-5" />
