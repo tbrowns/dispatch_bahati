@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors - Dark Theme */
+    --color-primary: #edb88b;
+    --color-secondary: #1a1a1a;
+    --color-white: #ffffff;
+    --color-gray-1: #a0a0a0;
+    --color-gray-2: #6b6b6b;
+    --color-gray-3: #0f0f0f;
+    --color-dark-bg: #0a0a0a;
+    --color-dark-card: #141414;
+    --color-dark-surface: #1c1c1c;
+    
+    /* shadcn variables - Dark Theme */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 28 75% 74%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 28 75% 74%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 28 75% 74%;
+    --radius: 0.5rem;
+    
+    /* Animation Easings */
+    --ease-dramatic: cubic-bezier(0.87, 0, 0.13, 1);
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-[#0a0a0a] text-white antialiased;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply w-full max-w-[1460px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-[30px];
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-[130px];
+  }
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-[#edb88b] text-black font-semibold rounded-lg transition-all duration-300 hover:bg-[#f5c49a] hover:shadow-[0_0_30px_rgba(237,184,139,0.4)] hover:-translate-y-1;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-[#edb88b] text-[#edb88b] font-semibold rounded-lg transition-all duration-300 hover:bg-[#edb88b] hover:text-black;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-[#edb88b] to-[#f5d4b8] bg-clip-text text-transparent;
+  }
+  
+  .card-dark {
+    @apply bg-[#141414] border border-[#2a2a2a] rounded-xl;
+  }
+  
+  .card-dark-hover {
+    @apply bg-[#141414] border border-[#2a2a2a] rounded-xl transition-all duration-300 hover:border-[#edb88b]/30 hover:shadow-[0_0_30px_rgba(237,184,139,0.1)];
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .glow-primary {
+    box-shadow: 0 0 30px rgba(237, 184, 139, 0.2);
+  }
+}
+
+/* Custom Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(237, 184, 139, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(237, 184, 139, 0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Scrollbar Styling - Dark */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #edb88b;
+}
+
+/* Admin Panel Styles */
+.admin-input {
+  @apply w-full px-4 py-3 bg-[#1c1c1c] border border-[#2a2a2a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#edb88b] transition-colors;
+}
+
+.admin-textarea {
+  @apply w-full px-4 py-3 bg-[#1c1c1c] border border-[#2a2a2a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#edb88b] transition-colors resize-none;
+}
