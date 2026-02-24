@@ -48,23 +48,17 @@ const Navbar = () => {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo (visually hidden to avoid overlapping hero logo) */}
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('#home');
             }}
+            aria-label="Scroll to top"
             className="flex items-center gap-2 transition-transform duration-300 hover:scale-105"
           >
-            <div className="w-10 h-10 bg-[#edb88b] rounded-lg flex items-center justify-center">
-              <span className="text-black font-bold text-lg font-display">B</span>
-            </div>
-            <span className={`font-display font-bold text-lg hidden sm:block transition-colors duration-300 ${
-              isScrolled ? 'text-white' : 'text-white'
-            }`}>
-              BAHATI
-            </span>
+            <span className="sr-only">Bahati</span>
           </a>
 
           {/* Desktop Navigation */}

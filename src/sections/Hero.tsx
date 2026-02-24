@@ -66,6 +66,15 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
+      {/* Logo - Top Left Corner */}
+      <div className="absolute top-6 left-6 lg:top-8 lg:left-8 z-20">
+        <img
+          src="/images/Bahati%20Dispatch%20logo.png"
+          alt="Bahati Dispatching Services"
+          className="h-12 md:h-14 lg:h-16 w-auto object-contain"
+        />
+      </div>
+
       {/* Background Image */}
       <div
         ref={imageRef}
