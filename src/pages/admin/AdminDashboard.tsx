@@ -38,7 +38,6 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("hero");
   const [saveMessage, setSaveMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
   const [displayImageUpload, setDisplayImageUpload] = useState(true);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
@@ -81,7 +80,6 @@ const AdminDashboard = () => {
     if (!file) return;
     try {
       setIsImageSelected(true);
-      setUploadingIndex(index);
       setSaveMessage("Uploading image...");
       const result = await uploadBlogImage(file, postId, (p) => {
         setSaveMessage(`Uploading image... ${p}%`);
@@ -96,7 +94,6 @@ const AdminDashboard = () => {
       console.error(err);
       setSaveMessage("Image upload failed.");
     } finally {
-      setUploadingIndex(null);
       setTimeout(() => setSaveMessage(""), 3000);
     }
   };
