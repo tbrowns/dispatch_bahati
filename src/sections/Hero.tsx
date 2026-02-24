@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ArrowRight } from 'lucide-react';
-import { useContent } from '../context/ContentContext';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ArrowRight } from "lucide-react";
+import { useContent } from "../context/ContentContext";
 
 const Hero = () => {
   const { content } = useContent();
@@ -18,35 +18,47 @@ const Hero = () => {
       gsap.fromTo(
         imageRef.current,
         { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 2, ease: 'expo.out' }
+        { scale: 1, opacity: 1, duration: 2, ease: "expo.out" },
       );
 
       // Tagline animation
       gsap.fromTo(
         taglineRef.current,
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.5, ease: 'expo.out' }
+        { y: 0, opacity: 1, duration: 0.8, delay: 0.5, ease: "expo.out" },
       );
 
       // Title clip reveal animation
       gsap.fromTo(
         titleRef.current,
-        { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-        { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1, delay: 0.8, ease: 'power4.out' }
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          opacity: 1,
+          duration: 1,
+          delay: 0.8,
+          ease: "power4.out",
+        },
       );
 
       // Description fade up
       gsap.fromTo(
         descRef.current,
         { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, delay: 1.2, ease: 'expo.out' }
+        { y: 0, opacity: 1, duration: 0.7, delay: 1.2, ease: "expo.out" },
       );
 
       // CTA button bounce in
       gsap.fromTo(
         ctaRef.current,
         { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, delay: 1.4, ease: 'elastic.out(1, 0.5)' }
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          delay: 1.4,
+          ease: "elastic.out(1, 0.5)",
+        },
       );
     }, heroRef);
 
@@ -54,9 +66,9 @@ const Hero = () => {
   }, []);
 
   const scrollToContact = () => {
-    const element = document.querySelector('#contact');
+    const element = document.querySelector("#contact");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -66,24 +78,19 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Logo - Top Left Corner */}
-      <div className="absolute top-6 left-6 lg:top-8 lg:left-8 z-20">
-        <img
-          src="/images/Bahati%20Dispatch%20logo.png"
-          alt="Bahati Dispatching Services"
-          className="h-12 md:h-14 lg:h-16 w-auto object-contain"
-        />
-      </div>
-
       {/* Background Image */}
       <div
         ref={imageRef}
         className="absolute inset-0 z-0"
         style={{ opacity: 0 }}
       >
-        <img
-          src="/images/hero-truck.jpg"
-          alt="Trucking logistics"
+        <video
+          src="/images/moving_truck.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
           className="w-full h-full object-cover"
         />
         {/* Dark Overlay */}
@@ -91,9 +98,9 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container-custom relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="max-w-2xl">
+      <div className="container-custom relative z-10 pt-20 mb-10">
+        <div className="grid items-center justify-center ">
+          <div className="w-full mx-auto lg:mx-0 text-center ">
             {/* Tagline */}
             <p
               ref={taglineRef}
@@ -109,12 +116,16 @@ const Hero = () => {
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
               style={{ opacity: 0 }}
             >
-              {content.hero.title.split('.').map((part, i, arr) => (
+              {content.hero.title.split(".").map((part, i, arr) => (
                 <span key={i}>
                   {part.trim()}
                   {i < arr.length - 1 && (
                     <>
-                      {i === 0 ? <span className="text-[#edb88b]">.</span> : '.'}
+                      {i === 0 ? (
+                        <span className="text-[#edb88b]">.</span>
+                      ) : (
+                        "."
+                      )}
                       <br />
                     </>
                   )}
@@ -125,7 +136,7 @@ const Hero = () => {
             {/* Description */}
             <p
               ref={descRef}
-              className="text-gray-300 text-base md:text-lg leading-relaxed mb-8 max-w-xl"
+              className="text-gray-300 text-base md:text-lg leading-relaxed mb-8 "
               style={{ opacity: 0 }}
             >
               {content.hero.description}
@@ -141,24 +152,6 @@ const Hero = () => {
               {content.hero.ctaText}
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </button>
-          </div>
-
-          {/* Right side - decorative elements */}
-          <div className="hidden lg:flex justify-end">
-            <div className="relative">
-              {/* Floating stats cards */}
-              <div className="absolute -top-10 -left-20 bg-[#141414]/80 backdrop-blur-md rounded-xl p-4 border border-[#2a2a2a] animate-float">
-                <p className="text-[#edb88b] font-bold text-2xl">24/7</p>
-                <p className="text-gray-400 text-sm">Support</p>
-              </div>
-              <div
-                className="absolute -bottom-10 -right-10 bg-[#141414]/80 backdrop-blur-md rounded-xl p-4 border border-[#2a2a2a] animate-float"
-                style={{ animationDelay: '1s' }}
-              >
-                <p className="text-[#edb88b] font-bold text-2xl">98%</p>
-                <p className="text-gray-400 text-sm">Satisfaction</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

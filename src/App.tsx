@@ -1,27 +1,28 @@
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ContentProvider } from './context/ContentContext';
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ContentProvider } from "./context/ContentContext";
 
 // Main Website Sections
-import Navbar from './sections/Navbar';
-import Hero from './sections/Hero';
-import TrustBar from './sections/TrustBar';
-import HowItWorks from './sections/HowItWorks';
-import Services from './sections/Services';
-import WhyChooseUs from './sections/WhyChooseUs';
-import WhoWeServe from './sections/WhoWeServe';
-import Reviews from './sections/Reviews';
-import FAQ from './sections/FAQ';
-import CTA from './sections/CTA';
-import Footer from './sections/Footer';
+import Navbar from "./sections/Navbar";
+import Hero from "./sections/Hero";
+import TrustBar from "./sections/TrustBar";
+import HowItWorks from "./sections/HowItWorks";
+import Services from "./sections/Services";
+import WhyChooseUs from "./sections/WhyChooseUs";
+import WhoWeServe from "./sections/WhoWeServe";
+import Reviews from "./sections/Reviews";
+import Blog from "./sections/Blog";
+import FAQ from "./sections/FAQ";
+import CTA from "./sections/CTA";
+import Footer from "./sections/Footer";
 
 // Admin Pages
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
-import './index.css';
+import "./index.css";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -31,7 +32,7 @@ const MainWebsite = () => {
   useEffect(() => {
     // Configure ScrollTrigger defaults
     ScrollTrigger.defaults({
-      toggleActions: 'play none none none',
+      toggleActions: "play none none none",
     });
 
     // Refresh ScrollTrigger on load
@@ -54,6 +55,7 @@ const MainWebsite = () => {
         <WhyChooseUs />
         <WhoWeServe />
         <Reviews />
+        <Blog />
         <FAQ />
         <CTA />
       </main>

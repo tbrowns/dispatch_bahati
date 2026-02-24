@@ -5,7 +5,14 @@ import {
   getDoc,
   setDoc,
   onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDxKJrNT1LC91VsLsWoWwthvpEGXMxEn4Q",
@@ -14,12 +21,13 @@ const firebaseConfig = {
   storageBucket: "bahati-ab97e.firebasestorage.app",
   messagingSenderId: "219837231308",
   appId: "1:219837231308:web:c6fbb90d5bf67d8bacd269",
-  measurementId: "G-MXGCCS9BTH"
+  measurementId: "G-MXGCCS9BTH",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 // Content document reference
 export const contentRef = doc(db, "website", "content");
@@ -285,6 +293,53 @@ export const defaultContent = {
     description:
       "With a driver-first mindset and reliable communication, we act as an extension of your business—working to reduce downtime, increase revenue, and build long-term partnerships based on trust and results.",
   },
+  blog: {
+    title: "Blog & Resources",
+    subtitle: "Industry Insights & Tips",
+    description:
+      "Stay updated with the latest in trucking, dispatching best practices, and industry trends.",
+    items: [
+      {
+        id: "1",
+        title: "Top 5 Tips to Maximize Your Trucking Revenue",
+        excerpt:
+          "Learn proven strategies to increase your earnings and reduce downtime.",
+        content:
+          "Maximizing your trucking revenue requires a combination of smart dispatch decisions, efficient route planning, and effective time management...",
+        author: "Bahati Team",
+        date: "February 20, 2026",
+        category: "Tips",
+        image: "/images/blog-1.jpg",
+        comments: [],
+      },
+      {
+        id: "2",
+        title: "Understanding DOT Compliance: A Complete Guide",
+        excerpt:
+          "Essential compliance information every trucker needs to know.",
+        content:
+          "DOT compliance is critical for all trucking operations. This guide covers the essential requirements, deadlines, and best practices...",
+        author: "Bahati Team",
+        date: "February 15, 2026",
+        category: "Compliance",
+        image: "/images/blog-2.jpg",
+        comments: [],
+      },
+      {
+        id: "3",
+        title: "How to Choose the Right Dispatch Service",
+        excerpt:
+          "What to look for when selecting a dispatch company for your fleet.",
+        content:
+          "Choosing the right dispatch service can significantly impact your business. Here are the key factors to consider...",
+        author: "Bahati Team",
+        date: "February 10, 2026",
+        category: "Business",
+        image: "/images/blog-3.jpg",
+        comments: [],
+      },
+    ],
+  },
 };
 
 // Fetch content from Firestore
@@ -293,11 +348,10 @@ export const fetchContent = async () => {
     const docSnap = await getDoc(contentRef);
     if (docSnap.exists()) {
       return docSnap.data();
-    } else {
-      // Initialize with default content if document doesn't exist
-      await setDoc(contentRef, defaultContent);
-      return defaultContent;
     }
+    // // Initialize with default content if document doesn't exist
+    // await setDoc(contentRef, defaultContent);
+    // return defaultContent;
   } catch (error) {
     console.error("Error fetching content:", error);
     return defaultContent;
@@ -324,4 +378,79 @@ export const subscribeToContent = (callback: (content: any) => void) => {
       callback(defaultContent);
     }
   });
+};
+
+// Add comment to blog post
+export const addCommentToBlog = async (
+  blogPostId: string,
+  comment: {
+    name: string;
+    email: string;
+    rating: number;
+    text: string;
+    timestamp: number;
+  },
+) => {
+  try {
+    const content = await getDoc(contentRef);
+    if (content.exists()) {
+      const data = content.data();
+      const blogItems = data.blog.items;
+      const postIndex = blogItems.findIndex(
+        (post: any) => post.id === blogPostId,
+      );
+
+      if (postIndex !== -1) {
+        blogItems[postIndex].comments = blogItems[postIndex].comments || [];
+        blogItems[postIndex].comments.push(comment);
+
+        await updateDoc(contentRef, {
+          "blog.items": blogItems,
+        });
+        return true;
+      }
+    }
+    return false;
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    return false;
+  }
+};
+
+// Upload blog image to Firebase Storage and return the gs:// path (and download URL)
+export const uploadBlogImage = async (
+  file: File,
+  blogPostId: string,
+  onProgress?: (progressPercent: number) => void,
+) => {
+  try {
+    const filename = `${Date.now()}_${file.name}`;
+    const path = `blog/${blogPostId}/${filename}`;
+    const storageReference = storageRef(storage, path);
+
+    const uploadTask = uploadBytesResumable(storageReference, file as any);
+
+    await new Promise<void>((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          if (onProgress) {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            onProgress(Math.round(progress));
+          }
+        },
+        (error) => reject(error),
+        () => resolve(),
+      );
+    });
+
+    const downloadURL = await getDownloadURL(storageReference);
+    const gsPath = `gs://${firebaseConfig.storageBucket}/${path}`;
+
+    return { gsPath, downloadURL };
+  } catch (error) {
+    console.error("Error uploading blog image:", error);
+    return null;
+  }
 };

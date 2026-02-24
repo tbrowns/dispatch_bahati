@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, Phone, Edit } from 'lucide-react';
-import { useContent } from '../context/ContentContext';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Menu, X, Phone, Edit } from "lucide-react";
+import { useContent } from "../context/ContentContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,21 +13,22 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Home", href: "#home" },
+    { name: "Services", href: "#services" },
+    { name: "About", href: "#about" },
+    { name: "Blog", href: "#blog" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
   };
@@ -35,31 +36,27 @@ const Navbar = () => {
   const navigate = useNavigate();
   const viewAdminPanel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigate('/admin');
+    navigate("/admin");
   };
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#0a0a0a]/95 backdrop-blur-xl shadow-lg shadow-black/20'
-          : 'bg-transparent'
+          ? "bg-[#0a0a0a]/95 backdrop-blur-xl shadow-lg shadow-black/20"
+          : "bg-transparent"
       }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
-          {/* Logo (visually hidden to avoid overlapping hero logo) */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#home');
-            }}
-            aria-label="Scroll to top"
-            className="flex items-center gap-2 transition-transform duration-300 hover:scale-105"
-          >
-            <span className="sr-only">Bahati</span>
-          </a>
+          {/* Logo - Top Left Corner */}
+          <div className="z-20 flex items-center">
+            <img
+              src="/images/c_logo.png"
+              alt="Bahati Dispatching Services"
+              className="h-20 w-auto object-contain"
+            />
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
@@ -72,7 +69,9 @@ const Navbar = () => {
                   scrollToSection(link.href);
                 }}
                 className={`relative font-medium text-sm transition-colors duration-300 group ${
-                  isScrolled ? 'text-gray-300 hover:text-[#edb88b]' : 'text-white/90 hover:text-[#edb88b]'
+                  isScrolled
+                    ? "text-gray-300 hover:text-[#edb88b]"
+                    : "text-white/90 hover:text-[#edb88b]"
                 }`}
               >
                 {link.name}
@@ -84,9 +83,11 @@ const Navbar = () => {
           {/* Phone & CTA */}
           <div className="hidden lg:flex items-center gap-6">
             <a
-              href={`tel:${content.contact.phone.replace(/\s/g, '')}`}
+              href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
               className={`flex items-center gap-2 font-medium text-sm transition-colors duration-300 ${
-                isScrolled ? 'text-gray-300 hover:text-[#edb88b]' : 'text-white/90 hover:text-[#edb88b]'
+                isScrolled
+                  ? "text-gray-300 hover:text-[#edb88b]"
+                  : "text-white/90 hover:text-[#edb88b]"
               }`}
             >
               <Phone className="w-4 h-4" />
@@ -98,14 +99,18 @@ const Navbar = () => {
             >
               <Edit className="w-4 h-4" />
             </button>
-          </div> 
+          </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 text-white"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -114,8 +119,8 @@ const Navbar = () => {
       <div
         className={`lg:hidden absolute top-full left-0 right-0 bg-[#141414] shadow-xl transition-all duration-300 ${
           isMobileMenuOpen
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 -translate-y-4 pointer-events-none'
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
         <div className="container-custom py-6">
@@ -134,17 +139,14 @@ const Navbar = () => {
               </a>
             ))}
             <a
-              href={`tel:${content.contact.phone.replace(/\s/g, '')}`}
+              href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
               className="flex items-center gap-2 text-[#edb88b] font-medium py-2"
             >
               <Phone className="w-4 h-4" />
               <span>{content.contact.phone}</span>
             </a>
-            <button
-              onClick={viewAdminPanel}
-              className="btn-primary mt-2"
-            >
-              <Edit className="w-4 h-4" /> 
+            <button onClick={viewAdminPanel} className="btn-primary mt-2">
+              <Edit className="w-4 h-4" />
             </button>
           </div>
         </div>
