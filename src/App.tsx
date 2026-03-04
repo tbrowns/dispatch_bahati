@@ -49,7 +49,7 @@ const MainWebsite = () => {
       <Navbar />
       <main>
         <Hero />
-        <TrustBar />
+        {/* <TrustBar /> */}
         <HowItWorks />
         <Services />
         <WhyChooseUs />

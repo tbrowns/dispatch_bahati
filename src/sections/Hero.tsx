@@ -65,13 +65,6 @@ const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToContact = () => {
-    const element = document.querySelector("#contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       id="home"
@@ -101,15 +94,6 @@ const Hero = () => {
       <div className="container-custom relative z-10 pt-20 mb-10">
         <div className="grid items-center justify-center ">
           <div className="w-full mx-auto lg:mx-0 text-center ">
-            {/* Tagline */}
-            <p
-              ref={taglineRef}
-              className="text-[#edb88b] font-medium text-sm md:text-base tracking-widest uppercase mb-4"
-              style={{ opacity: 0 }}
-            >
-              {content.hero.tagline}
-            </p>
-
             {/* Title */}
             <h1
               ref={titleRef}
@@ -133,10 +117,19 @@ const Hero = () => {
               ))}
             </h1>
 
+            {/* Tagline */}
+            <p
+              ref={taglineRef}
+              className="text-[#edb88b] font-medium text-sm md:text-base tracking-widest uppercase mb-4"
+              style={{ opacity: 0 }}
+            >
+              {content.hero.tagline}
+            </p>
+
             {/* Description */}
             <p
               ref={descRef}
-              className="text-gray-300 text-base md:text-lg leading-relaxed mb-8 "
+              className="text-gray-300 text-base md:text-lg leading-relaxed mb-8 text-balance "
               style={{ opacity: 0 }}
             >
               {content.hero.description}
@@ -145,11 +138,16 @@ const Hero = () => {
             {/* CTA Button */}
             <button
               ref={ctaRef}
-              onClick={scrollToContact}
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .querySelector("#contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="btn-primary group animate-pulse-glow"
               style={{ opacity: 0 }}
             >
-              {content.hero.ctaText}
+              <a href="#contact">{content.hero.ctaText}</a>
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </button>
           </div>

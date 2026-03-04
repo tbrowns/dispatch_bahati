@@ -1,11 +1,15 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent } from '../context/ContentContext';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useContent } from "../context/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stepImages = ['/images/step-1.jpg', '/images/step-2.jpg', '/images/step-3.jpg'];
+const stepImages = [
+  "/images/step-1.jpg",
+  "/images/step-2.jpg",
+  "/images/step-3.jpg",
+];
 
 const HowItWorks = () => {
   const { content } = useContent();
@@ -24,13 +28,13 @@ const HowItWorks = () => {
           y: 0,
           opacity: 1,
           duration: 0.6,
-          ease: 'expo.out',
+          ease: "expo.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 85%', // Trigger later
-            toggleActions: 'play none none none',
+            start: "top 85%", // Trigger later
+            toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Progress line animation
@@ -41,13 +45,13 @@ const HowItWorks = () => {
           scaleX: 1,
           duration: 1.5,
           delay: 0.3,
-          ease: 'expo.out',
+          ease: "expo.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
+            start: "top 85%",
+            toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Cards stagger animation
@@ -62,13 +66,13 @@ const HowItWorks = () => {
               opacity: 1,
               duration: 0.8,
               delay: 0.5 + index * 0.2,
-              ease: 'expo.out',
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top 75%', // Trigger later
-                toggleActions: 'play none none none',
+                start: "top 75%", // Trigger later
+                toggleActions: "play none none none",
               },
-            }
+            },
           );
         }
       });
@@ -100,7 +104,7 @@ const HowItWorks = () => {
           <div
             ref={progressRef}
             className="absolute top-1/2 left-0 h-1 bg-[#edb88b] -translate-y-1/2 origin-left"
-            style={{ width: '66%', transform: 'scaleX(0)' }}
+            style={{ width: "66%", transform: "scaleX(0)" }}
           />
         </div>
 
@@ -109,9 +113,11 @@ const HowItWorks = () => {
           {content.howItWorks.steps.map((step, index) => (
             <div
               key={step.number}
-              ref={(el) => { cardsRef.current[index] = el; }}
+              ref={(el) => {
+                cardsRef.current[index] = el;
+              }}
               className="group relative"
-              style={{ opacity: 0, perspective: '1000px' }}
+              style={{ opacity: 0, perspective: "1000px" }}
             >
               {/* Step Number */}
               <div className="absolute -top-4 -left-2 w-16 h-16 bg-[#edb88b] rounded-full flex items-center justify-center z-10 shadow-[0_0_30px_rgba(237,184,139,0.3)] group-hover:scale-110 transition-transform duration-300">
@@ -147,7 +153,7 @@ const HowItWorks = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-12">
+        {/* <div className="text-center mt-12">
           <a
             href="#contact"
             onClick={(e) => {
@@ -158,7 +164,7 @@ const HowItWorks = () => {
           >
             {content.hero.ctaText}
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );

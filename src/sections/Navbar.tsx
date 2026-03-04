@@ -50,13 +50,13 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo - Top Left Corner */}
-          <div className="z-20 flex items-center">
+          <a href="#home" className="z-20 flex items-center">
             <img
-              src="/images/c_logo.png"
+              src="/images/d_logo.png"
               alt="Bahati Dispatching Services"
-              className="h-20 w-auto object-contain"
+              className="h-20 mix-blend-lighten"
             />
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
