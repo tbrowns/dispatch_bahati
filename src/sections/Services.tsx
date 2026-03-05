@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Truck,
   PhoneCall,
@@ -8,8 +8,8 @@ import {
   ShieldCheck,
   BarChart3,
   Clock,
-} from 'lucide-react';
-import { useContent } from '../context/ContentContext';
+} from "lucide-react";
+import { useContent } from "../context/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,16 +38,17 @@ const Services = () => {
           y: 0,
           opacity: 1,
           duration: 0.6,
-          ease: 'expo.out',
+          ease: "expo.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 85%', // Trigger later
-            toggleActions: 'play none none none',
+            start: "top 85%", // Trigger later
+            toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Cards stagger animation
+      gsap.set(cardsRef.current, { opacity: 0 });
       cardsRef.current.forEach((card, index) => {
         if (card) {
           gsap.fromTo(
@@ -59,13 +60,13 @@ const Services = () => {
               opacity: 1,
               duration: 0.7,
               delay: 0.1 + index * 0.1,
-              ease: 'expo.out',
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top 70%', // Trigger later
-                toggleActions: 'play none none none',
+                start: "top 70%", // Trigger later
+                toggleActions: "play none none none",
               },
-            }
+            },
           );
         }
       });
@@ -75,10 +76,18 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="section-padding bg-[#0a0a0a]">
+    <section
+      id="services"
+      ref={sectionRef}
+      className="section-padding bg-[#0a0a0a]"
+    >
       <div className="container-custom">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center mb-16" style={{ opacity: 0 }}>
+        <div
+          ref={titleRef}
+          className="text-center mb-16"
+          style={{ opacity: 0 }}
+        >
           <p className="text-[#edb88b] font-medium text-sm tracking-widest uppercase mb-4">
             {content.services.subtitle}
           </p>
@@ -94,15 +103,20 @@ const Services = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {content.services.items.map((service, index) => {
             const Icon = iconMap[index] || Truck;
+            console.log(
+              "Rendering service:",
+              service.title + " with icon index: " + index,
+            );
             return (
               <div
                 key={service.title}
-                ref={(el) => { cardsRef.current[index] = el; }}
+                ref={(el) => {
+                  cardsRef.current[index] = el;
+                }}
                 className="group bg-[#141414] rounded-2xl p-8 border border-[#2a2a2a] hover:border-[#edb88b]/30 hover:shadow-[0_0_30px_rgba(237,184,139,0.1)] transition-all duration-300 hover:-translate-y-2"
                 style={{
-                  opacity: 0,
-                  perspective: '1000px',
-                  transformStyle: 'preserve-3d',
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d",
                 }}
               >
                 {/* Icon */}
