@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, Phone, Edit } from "lucide-react";
 import { useContent } from "../context/ContentContext";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { content } = useContent();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 50);
+  //   };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -41,18 +41,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-[#0a0a0a]/95 backdrop-blur-xl shadow-lg shadow-black/20"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#edb88b]/95 backdrop-blur-xl shadow-lg shadow-black/20"`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo - Top Left Corner */}
           <a href="#home" className="z-20 flex items-center">
             <img
-              src="/images/d_logo.png"
+              src="/images/c_logo.png"
               alt="Bahati Dispatching Services"
               className="h-20 mix-blend-lighten"
             />
@@ -68,11 +64,7 @@ const Navbar = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`relative font-medium text-sm transition-colors duration-300 group ${
-                  isScrolled
-                    ? "text-gray-300 hover:text-[#edb88b]"
-                    : "text-white/90 hover:text-[#edb88b]"
-                }`}
+                className={`relative font-medium text-sm transition-colors duration-300 group text-black hover:text-black/50`}
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#edb88b] transition-all duration-300 group-hover:w-full" />
@@ -84,11 +76,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-6">
             <a
               href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
-              className={`flex items-center gap-2 font-medium text-sm transition-colors duration-300 ${
-                isScrolled
-                  ? "text-gray-300 hover:text-[#edb88b]"
-                  : "text-white/90 hover:text-[#edb88b]"
-              }`}
+              className={`flex items-center gap-2 font-medium text-sm transition-colors duration-300 text-black hover:text-black/50`}
             >
               <Phone className="w-4 h-4" />
               <span>{content.contact.phone}</span>

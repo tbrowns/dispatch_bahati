@@ -103,10 +103,6 @@ const Services = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {content.services.items.map((service, index) => {
             const Icon = iconMap[index] || Truck;
-            console.log(
-              "Rendering service:",
-              service.title + " with icon index: " + index,
-            );
             return (
               <div
                 key={service.title}
