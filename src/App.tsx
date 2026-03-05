@@ -7,7 +7,7 @@ import { ContentProvider } from "./context/ContentContext";
 // Main Website Sections
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
-import TrustBar from "./sections/TrustBar";
+// import TrustBar from "./sections/TrustBar";
 import HowItWorks from "./sections/HowItWorks";
 import Services from "./sections/Services";
 import WhyChooseUs from "./sections/WhyChooseUs";
